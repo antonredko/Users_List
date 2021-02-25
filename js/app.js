@@ -1,13 +1,29 @@
 let USERS = []
+const tableBodyEl = document.getElementById('tableBody')
 
 getData()
+
+function renderUsers(where, array) {
+    let html = ''
+    array.forEach(element => html += createUser(element))
+    where.innerHTML = html
+}
+
+function createUser(data) {
+    return `<tr class="user">
+                <td>${data.name}</td>
+                <td>${data.username}</td>
+                <td>${data.email}</td>
+                <td>${data.website}</td>
+            </tr>`
+}
 
 async function getData() {
     try {
         const response = await fetch('https://jsonplaceholder.typicode.com/users')
         const data = await response.json()
         USERS = [...data]
-        console.log(USERS);
+        renderUsers(tableBodyEl, USERS)
     } catch (error) {
         console.warn(error)
     }
