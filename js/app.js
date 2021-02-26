@@ -1,5 +1,6 @@
 let USERS = []
 const bodyEl = document.body
+const tableBlockEl = document.getElementById('tableBlock')
 const tableBodyEl = document.getElementById('tableBody')
 const userCardEl = document.getElementById('userCard')
 const userCardContentEl = document.getElementById('userCardContent')
@@ -7,6 +8,25 @@ const userCardBodyEl = document.getElementById('userCardBody')
 
 
 getData()
+
+
+tableBlockEl.querySelector('thead').addEventListener('click', event => {
+    const order = (event.target.dataset.order = -(event.target.dataset.order || -1));
+    const index = [...event.target.parentNode.cells].indexOf(event.target);
+    const collator = new Intl.Collator(undefined, {
+        sensitivity: 'accent'
+    })
+    const comparator = (index, order) => (a, b) => order * collator.compare(
+        a.children[index].innerHTML,
+        b.children[index].innerHTML
+    )
+    
+    tableBodyEl.append(...[...tableBodyEl.rows].sort(comparator(index, order)))
+
+    for (const cell of event.target.parentNode.cells) {
+        cell.classList.toggle('sorted', cell === event.target)
+    }
+})
 
 
 userCardEl.addEventListener('click', event => {
