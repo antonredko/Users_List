@@ -23,25 +23,23 @@
                 <caption class="table_title">Users</caption>
                 <thead class="table_head">
                     <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Username</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Website</th>
+                        <th scope="col" data-col="name">Name</th>
+                        <th scope="col" data-col="username">Username</th>
+                        <th scope="col" data-col="email">Email</th>
+                        <th scope="col" data-col="website">Website</th>
                     </tr>
                 </thead>
                 <tbody class="table_body" id="tableBody"></tbody>
             </table>
-            <div class="popup" id="userCard">
-                <div class="popup_container">
-                    <div class="popup_content" id="userCardContent">
-                        <div class="popup_header">
-                            <h2 class="popup_title">User Card</h2>
-                            <button class="popup_close" aria-label="Close User Card"></button>
-                        </div>
-                        <form class="popup_body" id="userCardBody"></form>
-                    </div>
-                </div>
+        </div>
+    </div>
+    <div class="popup" id="userCard">
+        <div class="popup_content">
+            <div class="popup_header">
+                <h2 class="popup_title">User Card</h2>
+                <button class="popup_close" aria-label="Close User Card"></button>
             </div>
+            <form class="popup_body" id="userCardBody"></form>
         </div>
     </div>
     <script src="js/app.js"></script>

@@ -1,9 +1,7 @@
 let USERS = []
-const bodyEl = document.body
 const tableBlockEl = document.getElementById('tableBlock')
 const tableBodyEl = document.getElementById('tableBody')
 const userCardEl = document.getElementById('userCard')
-const userCardContentEl = document.getElementById('userCardContent')
 const userCardBodyEl = document.getElementById('userCardBody')
 
 
@@ -29,20 +27,17 @@ tableBlockEl.querySelector('thead').addEventListener('click', event => {
 })
 
 
-userCardEl.addEventListener('click', event => {
-    if (!event.target.closest('.popup_content')) {
-        userCardEl.classList.remove('open')
-        bodyEl.classList.remove('unscroll')
+userCardEl.addEventListener('click', function(event) {
+    const closeBtnEl = event.target.closest('.popup_close')
+    if (closeBtnEl || event.target == this) {
+        document.body.classList.remove('open', 'unscroll')
     }
 })
 
 
-userCardContentEl.addEventListener('click', event => {
-    const closeBtnEl = event.target.closest('.popup_close')
-
-    if (closeBtnEl) {
-        userCardEl.classList.remove('open')
-        bodyEl.classList.remove('unscroll')
+document.addEventListener('keyup', event => {
+    if (event.key === 'Escape') {
+        document.body.classList.remove('open', 'unscroll')
     }
 })
 
@@ -54,8 +49,7 @@ tableBodyEl.addEventListener('click', event => {
         const userObj = USERS.find(user => user.id == userEl.dataset.id)
 
         userCardBodyEl.innerHTML = createUserCard(userObj)
-        userCardEl.classList.add('open')
-        bodyEl.classList.add('unscroll')
+        document.body.classList.add('open', 'unscroll')
     }
 })
 
@@ -122,7 +116,6 @@ function createUserCard(user) {
 
 function renderUsers(where, array) {
     let html = ''
-
     array.forEach(element => html += createUser(element))
     where.innerHTML = html
 }
@@ -133,7 +126,10 @@ function createUser(data) {
                 <td>${data.name}</td>
                 <td>${data.username}</td>
                 <td>${data.email}</td>
-                <td>${data.website}</td>
+                <td>
+                    <p>${data.website}</p>
+                    <button class="remove_user_btn">&times;</button>
+                </td>
             </tr>`
 }
 
@@ -142,7 +138,7 @@ async function getData() {
     try {
         const response = await fetch('https://jsonplaceholder.typicode.com/users')
         const data = await response.json()
-        USERS = [...data]
+        USERS = data
         renderUsers(tableBodyEl, USERS)
     } catch (error) {
         console.warn(error)
