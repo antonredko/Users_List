@@ -126,10 +126,8 @@ function createUser(data) {
                 <td>${data.name}</td>
                 <td>${data.username}</td>
                 <td>${data.email}</td>
-                <td>
-                    <p>${data.website}</p>
-                    <button class="remove_user_btn">&times;</button>
-                </td>
+                <td>${data.website}</td>
+                <td><button class="remove_user_btn"></button></td>
             </tr>`
 }
 

@@ -220,3 +220,9 @@ body.open .popup .popup_content{
     align-items: center;
     padding: 0;
 }
+.remove_user_btn::after{
+    content: '';
+    width: 20px;
+    height: 20px;
+    background: url('../img/close_icon.svg') no-repeat center/contain;
+}
