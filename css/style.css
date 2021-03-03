@@ -62,13 +62,14 @@ a, span, ::after, ::before{
     background-color: #6eb5c0;
 }
 .table_head th{
-    width: calc(100% / 4);
     padding: 0 10px;
     line-height: 2;
     letter-spacing: 2px;
     text-align: left;
-    cursor: pointer;
     transition: .3s;
+}
+.table_head th:not(:last-child){
+    cursor: pointer;
 }
 .sorted[data-order="1"], .sorted[data-order="-1"]{
     position: relative;
@@ -89,6 +90,9 @@ a, span, ::after, ::before{
     letter-spacing: 1px;
     cursor: pointer;
 }
+.table_body td:last-child{
+    vertical-align: middle;
+}
 .table_body tr{
     border-bottom: 2px solid #f3f3f3;
     transition: .3s;
@@ -104,8 +108,11 @@ a, span, ::after, ::before{
     background-color: #ffccbb;
     color: #636363;
 }
-.table_head th:hover{
+.table_head th:not(:last-child):hover{
     background-color: #ffccbb;
+}
+.table_head th:last-child{
+    width: 50px;
 }
 .popup{
     width: 100%;
@@ -215,14 +222,61 @@ body.open .popup .popup_content{
     overflow-y: hidden;
 }
 .remove_user_btn{
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
     padding: 0;
+    transition: .5s;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    margin: 0 auto;
+    cursor: pointer;
 }
 .remove_user_btn::after{
     content: '';
-    width: 20px;
-    height: 20px;
+    width: 1.3rem;
+    height: 1.3rem;
     background: url('../img/close_icon.svg') no-repeat center/contain;
+    transition: .5s;
+}
+.remove_user_btn:hover{
+    transform: rotate(180deg);
+}
+.remove_user_btn:hover::after{
+    background: url('../img/close_icon_hover.svg') no-repeat center/contain;
+}
+.add_new_user{
+    margin: 30px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3rem;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    color: #006c84;
+    transition: .3s;
+    position: relative;
+}
+.add_new_user::before{
+    content: '\2295';
+    margin-right: 5px;
+    font-size: 1.7rem;
+    font-weight: 400;
+    display: inline;
+    vertical-align: middle;
+}
+.add_new_user::after{
+    content: "";
+    position: absolute;
+    width: 0;
+    bottom: 0;
+    height: 2px;
+    background-color: #ff5b2d;
+    transition: .3s .3s;
+}
+.add_new_user:hover{
+    color: #ff5b2d;
+}
+.add_new_user:hover::after{
+    width: 100%;
 }

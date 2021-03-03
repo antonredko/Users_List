@@ -5,7 +5,7 @@ const userCardEl = document.getElementById('userCard')
 const userCardBodyEl = document.getElementById('userCardBody')
 
 
-getData()
+getData(tableBodyEl)
 
 
 tableBlockEl.querySelector('thead').addEventListener('click', event => {
@@ -44,12 +44,16 @@ document.addEventListener('keyup', event => {
 
 tableBodyEl.addEventListener('click', event => {
     const userEl = event.target.closest('.user')
-
-    if (userEl) {
+    const removeUserBtnEl = event.target.closest('.remove_user_btn')
+    if (userEl && !removeUserBtnEl) {
         const userObj = USERS.find(user => user.id == userEl.dataset.id)
-
         userCardBodyEl.innerHTML = createUserCard(userObj)
         document.body.classList.add('open', 'unscroll')
+    }
+    if (removeUserBtnEl && userEl) {
+        const userIndex = USERS.findIndex(user => user.id == userEl.dataset.id)
+        USERS.splice(userIndex, 1)
+        renderUsers(tableBodyEl, USERS)
     }
 })
 
@@ -132,12 +136,12 @@ function createUser(data) {
 }
 
 
-async function getData() {
+async function getData(block) {
     try {
         const response = await fetch('https://jsonplaceholder.typicode.com/users')
         const data = await response.json()
+        renderUsers(block, data)
         USERS = data
-        renderUsers(tableBodyEl, USERS)
     } catch (error) {
         console.warn(error)
     }
