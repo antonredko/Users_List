@@ -19,29 +19,29 @@
 <body>
     <div id="app">
         <div class="container">
-            <table class="table_block table_sort" id="tableBlock">
+            <table class="table_block" id="tableBlock">
                 <caption class="table_title">Users</caption>
                 <thead class="table_head">
                     <tr>
-                        <th scope="col" data-col="name">Name</th>
-                        <th scope="col" data-col="username">Username</th>
-                        <th scope="col" data-col="email">Email</th>
-                        <th scope="col" data-col="website">Website</th>
+                        <th scope="col" class="table_col" data-col="name">Name</th>
+                        <th scope="col" class="table_col" data-col="username">Username</th>
+                        <th scope="col" class="table_col" data-col="email">Email</th>
+                        <th scope="col" class="table_col" data-col="website">Website</th>
                         <th scope="col" data-col="delete"></th>
                     </tr>
                 </thead>
                 <tbody class="table_body" id="tableBody"></tbody>
             </table>
-            <button class="add_new_user">Add new user</button>
+            <button class="add_user_btn" id="addUserBtn">Add new user</button>
         </div>
     </div>
-    <div class="popup" id="userCard">
+    <div class="popup" id="modal">
         <div class="popup_content">
             <div class="popup_header">
-                <h2 class="popup_title">User Card</h2>
-                <button class="popup_close" aria-label="Close User Card"></button>
+                <h2>User Card</h2>
+                <button class="popup_close" aria-label="Close modal"></button>
             </div>
-            <form class="popup_body" id="userCardBody"></form>
+            <form name="user" class="popup_body" id="modalBody"></form>
         </div>
     </div>
     <script src="js/app.js"></script>

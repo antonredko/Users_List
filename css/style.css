@@ -123,10 +123,9 @@ a, span, ::after, ::before{
     background-color: rgb(0 0 0/80%);
     opacity: 0;
     visibility: hidden;
-    overflow-y: auto;
+    /* overflow-y: auto; */
     display: flex;
     justify-content: center;
-    align-items: center;
     transition: .5s;
 }
 body.open .popup{
@@ -139,12 +138,14 @@ body.open .popup .popup_content{
 }
 .popup_content{
     width: 100%;
+    height: auto;
     max-width: 800px;
     background-color: #fff;
     border-radius: 5px;
     opacity: 0;
     transform: perspective(600px) translate(0px, -100%) rotateX(45deg);
     transition: .5s;
+    overflow-y: auto;
 }
 .popup_header{
     display: flex;
@@ -215,7 +216,7 @@ body.open .popup .popup_content{
 .user_card_row textarea{
     resize: none;
 }
-.catch_phrase{
+.phrase{
     align-items: flex-start;
 }
 .unscroll{
@@ -243,40 +244,47 @@ body.open .popup .popup_content{
 .remove_user_btn:hover::after{
     background: url('../img/close_icon_hover.svg') no-repeat center/contain;
 }
-.add_new_user{
+.add_user_btn{
     margin: 30px auto;
+    padding: 5px 10px;  
     display: flex;
     justify-content: center;
-    align-items: center;
     font-size: 1.3rem;
     font-weight: 700;
     cursor: pointer;
     border: none;
-    background-color: transparent;
+    background: none;
     color: #006c84;
     transition: .3s;
     position: relative;
 }
-.add_new_user::before{
-    content: '\2295';
-    margin-right: 5px;
-    font-size: 1.7rem;
-    font-weight: 400;
-    display: inline;
-    vertical-align: middle;
-}
-.add_new_user::after{
+.add_user_btn::after{
     content: "";
     position: absolute;
     width: 0;
     bottom: 0;
     height: 2px;
     background-color: #ff5b2d;
-    transition: .3s .3s;
+    transition: .3s;
 }
-.add_new_user:hover{
+.add_user_btn:hover{
     color: #ff5b2d;
 }
-.add_new_user:hover::after{
+.add_user_btn:hover::after{
     width: 100%;
+}
+.create_user_btn{
+    margin: 20px 0;
+    padding: 5px 10px;
+    float: right;
+    background-color: #dee2e6;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: .3s;
+}
+.create_user_btn:hover{
+    background-color: #ff5b2d;
+    color: #fff;
 }
