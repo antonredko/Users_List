@@ -44,7 +44,6 @@ a, span, ::after, ::before{
 }
 .table_block{
     width: 100%;
-    table-layout: fixed;
     font-size: 1.2rem;
 }
 .table_title{
@@ -70,19 +69,6 @@ a, span, ::after, ::before{
 }
 .table_head th:not(:last-child){
     cursor: pointer;
-}
-.sorted[data-order="1"], .sorted[data-order="-1"]{
-    position: relative;
-}
-.sorted[data-order="1"]::after, .sorted[data-order="-1"]::after{
-    right: 8px;
-    position: absolute;
-}
-.sorted[data-order="-1"]::after{
-	content: "▼"
-}
-.sorted[data-order="1"]::after{
-	content: "▲"
 }
 .table_body td{
     padding: 10px;
@@ -114,6 +100,34 @@ a, span, ::after, ::before{
 .table_head th:last-child{
     width: 50px;
 }
+.sorted[data-sort="down"], .sorted[data-sort="up"], .table_col{
+    position: relative;
+}
+.sorted[data-sort="down"]::after, .sorted[data-sort="up"]::after, .table_col::before{
+    right: 8px;
+    position: absolute;
+    font-size: 1.5rem;
+    height: 100%;
+    width: auto;
+    align-items: center;
+}
+.sorted[data-sort="down"]::after{
+	content: "\25BC"
+}
+.sorted[data-sort="up"]::after{
+	content: "\25B2"
+}
+.table_col::before{
+    content: "\21F5";
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transition: .3s;
+}
+.table_col:hover:not(.sorted):before{
+    opacity: 1;
+    visibility: visible;
+}
 .popup{
     width: 100%;
     height: 100%;
@@ -123,7 +137,6 @@ a, span, ::after, ::before{
     background-color: rgb(0 0 0/80%);
     opacity: 0;
     visibility: hidden;
-    /* overflow-y: auto; */
     display: flex;
     justify-content: center;
     transition: .5s;
@@ -287,4 +300,77 @@ body.open .popup .popup_content{
 .create_user_btn:hover{
     background-color: #ff5b2d;
     color: #fff;
+}
+@media screen and (max-width: 1199.98px){
+    .table_block{
+        font-size: 1rem;
+    }
+    .table_body td{
+        letter-spacing: 0;
+    }
+}
+@media (max-width: 767.98px){
+    .table_title{
+        font-size: 1.5rem;
+        letter-spacing: 2px;
+        padding: 30px 0;
+    }
+    .table_head {
+        display: none;
+    }
+    .table_body tr{
+        display: block;
+        position: relative;
+        padding-top: 35px;
+    }
+    .table_body td{
+        display: flex;
+        justify-content: space-between;
+    }
+    .table_body td::before{
+        content: attr(data-label);
+        font-weight: bold;
+        margin-right: 20px;
+    }
+    .popup_header{
+        padding: 10px;
+        border-bottom: 1px solid #dee2e6;
+        font-size: 1rem;
+        letter-spacing: 0;
+    }
+    .popup_body{
+        padding: 10px;
+        font-size: 1rem;
+        letter-spacing: 0;
+        line-height: 1;
+    }
+    .popup_content{
+        border-radius: 0;
+    }
+    .user_card_block{
+        border: 1px solid #dee2e6;
+        padding: 5px;
+    }
+    .user_card_block:nth-child(n + 2){
+        margin-top: 5px;
+    }
+    .user_card_row input, .user_card_row textarea{
+        letter-spacing: 0;
+        padding: 5px;
+    }
+    .remove_user_btn{
+        position: absolute;
+        right: 10px;
+        top: 10px;
+    }
+    .create_user_btn{
+        margin: 10px 0;
+        padding: 5px;
+        font-size: 1rem;
+    }
+    .add_user_btn{
+        margin: 20px auto;
+        padding: 5px;
+        font-size: 1rem;
+    }
 }

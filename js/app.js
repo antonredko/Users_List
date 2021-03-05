@@ -27,7 +27,7 @@ modalBodyEl.addEventListener('submit', function(event) {
             }
         },
         "phone": this.phone.value || "---",
-        "website": this.website.value || "---",
+        "website": this.website.value,
         "company": {
             "name": this.company.value || "---",
             "catchPhrase": this.phrase.value || "---",
@@ -45,36 +45,33 @@ addUserBtnEl.addEventListener('click', () => {
     document.body.classList.add('open', 'unscroll')
 })
 
-function sortUsers(col) {
-    USERS.sort((a, b) => {
-        return a[col].localeCompare(b[col])
-    })
-    renderUsers(tableBodyEl, USERS)
-}
 
 tableBlockEl.addEventListener('click', event => {
     const colEl = event.target.closest('.table_col')
     if (colEl) {
         const colName = colEl.dataset.col
-        sortUsers(colName)
-    }
-    // const order = (event.target.dataset.order = -(event.target.dataset.order || -1));
-    // const index = [...event.target.parentNode.cells].indexOf(event.target);
-    // const collator = new Intl.Collator(undefined, {
-    //     sensitivity: 'accent'
-    // })
-    // const comparator = (index, order) => (a, b) => order * collator.compare(
-    //     a.children[index].innerHTML,
-    //     b.children[index].innerHTML
-    // )
-    
-    // tableBodyEl.append(...[...tableBodyEl.rows].sort(comparator(index, order)))
+        const colsArray = Array.from(colEl.parentNode.cells)
 
-    // for (const cell of event.target.parentNode.cells) {
-    //     if (cell.dataset.col != "delete") {
-    //         cell.classList.toggle('sorted', cell === event.target)
-    //     }
-    // }
+        if (colEl.dataset.sort === 'up' || colEl.dataset.sort === "default") {
+            USERS.sort((a, b) => {
+                return a[colName].localeCompare(b[colName])
+            })
+            colEl.dataset.sort = 'down'
+        } else if (colEl.dataset.sort === 'down') {
+            USERS.sort((a, b) => {
+                return b[colName].localeCompare(a[colName])
+            })
+            colEl.dataset.sort = 'up'
+        }
+
+        colsArray.forEach(cell => {
+            cell.classList.toggle('sorted', cell === event.target)
+            if (cell != event.target) {
+                cell.dataset.sort = "default"
+            }
+        })
+    }
+    renderUsers(tableBodyEl, USERS)
 })
 
 
@@ -254,10 +251,10 @@ function renderUsers(where, array) {
 
 function createUser(data) {
     return `<tr class="user" data-id="${data.id}">
-                <td>${data.name || "---"}</td>
-                <td>${data.username || "---"}</td>
-                <td>${data.email || "---"}</td>
-                <td>${data.website || "---"}</td>
+                <td data-label="Name">${data.name || "---"}</td>
+                <td data-label="Username">${data.username || "---"}</td>
+                <td data-label="Email">${data.email || "---"}</td>
+                <td data-label="Website">${data.website || "---"}</td>
                 <td><button class="remove_user_btn"></button></td>
             </tr>`
 }
